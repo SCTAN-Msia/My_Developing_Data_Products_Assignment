@@ -1,0 +1,97 @@
+---
+title: "Developing Data Products - Module 3 Week 2 Peer-graded Assignment"
+author: "Tan Siu Ching"
+date: "2025-04-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+In this assignment, I have created a web page using R Markdown that features a map created with Leaflet and host my webpage on GitHub Pages. The webpage contains the date that I created the document, and a map created with Leaflet.
+
+Welcome to my interactive map project created using R and Leaflet!
+
+In this assignment, I’ve marked several meaningful locations around Kuala Lumpur, Malaysia:
+- My **residential area**: *Bandar Utama 12*
+- My **workplace**: *University of Malaya (UM)*
+- The **city center** of *Kuala Lumpur*
+
+These places reflect my everyday life — from where I live, to where I work, to the vibrant city and state I’m proud to be part of. Scroll down to explore the map and click on each point to learn more!
+
+
+### Installation
+To use Leaflet in R, install the package (if you haven’t already):
+
+```r
+install.packages("leaflet")
+```
+
+### My First Leaflet Map: Create an interactive map using Leaflet in R that marks 3 of my favorite locations.
+```r
+library(leaflet)
+
+# Updated data frame without state
+my_places <- data.frame(
+  name = c("🏡 Bandar Utama 12 — My neighborhood",
+           "<b>🏢 University of Malaya — My workplace</b><br><a href='https://www.um.edu.my' target='_blank'>Visit UM Website</a>",
+           "🌆 Kuala Lumpur City Center"),
+  lat = c(3.1387, 3.1205, 3.1390),
+  lng = c(101.6158, 101.6544, 101.6869)
+)
+
+# Leaflet map with clustering and rectangle
+leaflet(data = my_places) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addMarkers(~lng, ~lat, popup = ~name,
+             clusterOptions = markerClusterOptions(),
+             popupOptions = popupOptions(maxWidth = 300)) %>%
+  
+  # Add rectangle around Bandar Utama 12
+  addRectangles(
+    lng1 = 101.6125, lat1 = 3.1360,  # Southwest corner
+    lng2 = 101.6190, lat2 = 3.1410,  # Northeast corner
+    fillColor = "blue",
+    fillOpacity = 0.1,
+    color = "blue",
+    weight = 2,
+    popup = "📦 Area: Bandar Utama 12"
+  )
+  
+```
+
+### This is my Output
+```{r}
+library(leaflet)
+
+# Updated data frame without state
+my_places <- data.frame(
+  name = c("🏡 Bandar Utama 12 — My neighborhood",
+           "<b>🏢 University of Malaya — My workplace</b><br><a href='https://www.um.edu.my' target='_blank'>Visit UM Website</a>",
+           "🌆 Kuala Lumpur City Center"),
+  lat = c(3.1387, 3.1205, 3.1390),
+  lng = c(101.6158, 101.6544, 101.6869)
+)
+
+# Leaflet map with clustering and rectangle
+leaflet(data = my_places) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addMarkers(~lng, ~lat, popup = ~name,
+             clusterOptions = markerClusterOptions(),
+             popupOptions = popupOptions(maxWidth = 300)) %>%
+  
+  # Add rectangle around Bandar Utama 12
+  addRectangles(
+    lng1 = 101.6125, lat1 = 3.1360,  # Southwest corner
+    lng2 = 101.6190, lat2 = 3.1410,  # Northeast corner
+    fillColor = "blue",
+    fillOpacity = 0.1,
+    color = "blue",
+    weight = 2,
+    popup = "📦 Area: Bandar Utama 12"
+  )
+```
+
